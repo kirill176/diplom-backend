@@ -24,12 +24,6 @@ const start = async () => {
   try {
     await mongoose.connect(process.env.DB_URL);
 
-    app._router.stack.forEach((r) => {
-      if (r.route && r.route.path) {
-        console.log(`Маршрут: ${r.route.path}, Метод: ${r.route.methods}`);
-      }
-    });
-
     app.listen(PORT, () => console.log(`Server started on PORT = ${PORT}`));
   } catch (error) {
     console.log(error);
