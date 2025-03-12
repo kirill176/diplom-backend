@@ -29,4 +29,10 @@ const start = async () => {
   }
 };
 
+app._router.stack.forEach((r) => {
+  if (r.route && r.route.path) {
+    console.log(`Маршрут: ${r.route.path}, Метод: ${r.route.methods}`);
+  }
+});
+
 start();
