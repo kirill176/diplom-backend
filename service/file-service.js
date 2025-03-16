@@ -18,7 +18,7 @@ const analytics = getAnalytics(app);
 const bucket = admin.storage().bucket();
 
 class FileService {
-  async addFile(file) {
+  async addFile(file, user) {
     try {
       const filePath = file.path;
       const fileName = path.basename(filePath);
@@ -33,11 +33,6 @@ class FileService {
 
       const fileUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
       fs.unlinkSync(filePath);
-
-      const user = await UserModel.findById(userId);
-      if (!user) {
-        throw new Error("User not found");
-      }
 
       user.usedSpace += fileSize;
       await user.save();

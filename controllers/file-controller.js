@@ -2,7 +2,8 @@ class FileController {
   async addFile(req, res, next) {
     try {
       const file = req.file;
-      const result = await fileService.addFile(file);
+      const user = req.user;
+      const result = await fileService.addFile(file, user);
       res.status(200).json(result);
     } catch (error) {
       next(error);
