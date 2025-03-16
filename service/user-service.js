@@ -24,6 +24,8 @@ class UserService {
       password: hashPassword,
       activationLink,
       userName,
+      disckSpace: 1024 ** 3 * 10,
+      usedSpace: 0,
     });
     await mailService.sendActivationMail(
       email,
