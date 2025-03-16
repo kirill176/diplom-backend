@@ -3,7 +3,7 @@ module.exports = class UserDto {
   id;
   isActivated;
   userName;
-  disckSpace;
+  diskSpace;
   usedSpace;
 
   constructor(model) {
@@ -11,7 +11,7 @@ module.exports = class UserDto {
     this.id = model._id;
     this.isActivated = model.isActivated;
     this.userName = model.userName;
-    this.disckSpace = model.disckSpace;
+    this.diskSpace = model.diskSpace;
     this.usedSpace = model.usedSpace;
   }
 };
