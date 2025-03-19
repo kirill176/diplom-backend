@@ -1,6 +1,7 @@
 const admin = require("firebase-admin");
 const path = require("path");
 const fs = require("fs");
+const { v4: uuid } = require("uuid");
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -21,8 +22,13 @@ class FileService {
   async addFile(file, user) {
     try {
       const filePath = file.path;
-      const fileName = path.basename(filePath);
-      const fileSize = file.size;
+
+      const newFile = {
+        id: uuidv4(),
+        fileName: path.basename(filePath),
+        fileSize: file.size,
+        fileType: file.mimetype,
+      };
 
       await bucket.upload(filePath, {
         destination: fileName,
@@ -34,6 +40,7 @@ class FileService {
       const fileUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
       fs.unlinkSync(filePath);
 
+      user.files.push(newFile);
       user.usedSpace += fileSize;
       await user.save();
 
